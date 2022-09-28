@@ -55,7 +55,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-    void test_getCategoryThrowsResourceNotFoundException() {
+    void test_getCategoryResourceNotFoundException() {
 
         List <Category> myCategory= new ArrayList<>();
 
@@ -85,7 +85,7 @@ public class CategoryServiceTest {
 
 
     @Test
-    void test_getCategoryIdThrowsResourceNotFoundException() {
+    void test_getCategoryIdResourceNotFoundException() {
         Integer id = 1;
 
         when(categoryRepository.findById(id))
@@ -129,7 +129,7 @@ public class CategoryServiceTest {
 
 
     @Test
-    public void test_updateCategoryThrowsResourceNotFoundException() {
+    public void test_updateCategoryResourceNotFoundException() {
         int id = 1;
         Category category =new Category(1,
                 null,

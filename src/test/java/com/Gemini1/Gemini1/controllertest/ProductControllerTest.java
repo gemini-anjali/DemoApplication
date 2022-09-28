@@ -72,7 +72,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void get_CategoryResourceNotFound() throws Exception
+    void get_ProductResourceNotFound() throws Exception
     {
         Integer productId=1;
 
@@ -120,7 +120,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void addProduct() throws Exception {
+    void test_addProduct() throws Exception {
 
         Integer categoryId=1;
         Products product =new Products(1,
@@ -144,7 +144,7 @@ class ProductControllerTest {
     }
 
     @Test
-    public void test_UpdateCategory() throws Exception {
+    public void test_updateCategory() throws Exception {
         Integer CategoryId=1;
         Products product =new Products(1,
                 "name",
@@ -171,7 +171,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void updateCategoryWhenCategoryDoesNotExistThenReturnNotFound() throws Exception {
+    void updateCategoryResourceNotFound() throws Exception {
 
 
         Products product =new Products(1,

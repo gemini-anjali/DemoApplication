@@ -66,7 +66,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    void test_getCategoryThrowsResourceNotFoundException() {
+    void test_getCategoryResourceNotFoundException() {
 
         List <Category> myCategory= new ArrayList<>();
 
@@ -117,7 +117,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    void test_getProductByIdThrowsResourceNotFoundException() {
+    void test_getProductByIdResourceNotFoundException() {
         Integer id = 1;
 
         when(productsRepository.findById(id))
@@ -147,7 +147,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void test_updateCategoryThrowsResourceNotFoundException() {
+    public void test_updateCategoryResourceNotFoundException() {
         int id = 1;
         Products product = new Products(1,
                 "category1",

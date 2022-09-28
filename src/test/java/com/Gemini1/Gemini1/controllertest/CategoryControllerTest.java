@@ -164,7 +164,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void updateCategoryWhenCategoryDoesNotExistThenReturnNotFound() throws Exception {
+    void updateCategoryResourceNotFound() throws Exception {
 
         Integer categoryId=1;
         Category testCategory=new Category();
