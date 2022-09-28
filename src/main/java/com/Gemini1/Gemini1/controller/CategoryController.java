@@ -21,8 +21,10 @@ public class CategoryController {
 
     /**
      * Get All Category */
+
     @GetMapping("/category")
     public ResponseEntity<List<Category>> getCategoryList() {
+
             log.info("Getting the list of all category");
             List<Category> categoryList = categoryService.getCategoryList();
             log.info("Get request for department is successful");
@@ -44,12 +46,13 @@ public class CategoryController {
     /**
      * Get Category By CategoryId */
 
-   @GetMapping("/category/{Id}")
-   public ResponseEntity<Category> getCategoryById(@PathVariable Integer Id) {
-       log.info("Getting the Category" + Id);
-       Category category = categoryService.getCategoryById(Id);
-       return new ResponseEntity<>(category,HttpStatus.OK);
-   }
+    @GetMapping("/category/{Id}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable Integer Id) {
+
+           log.info("Getting the Category" + Id);
+           Category category = categoryService.getCategoryById(Id);
+           return new ResponseEntity<>(category,HttpStatus.OK);
+    }
 
     /**
      * Update Category */
@@ -67,6 +70,7 @@ public class CategoryController {
 
     @DeleteMapping("/category/{Id}")
     public ResponseEntity<Category> deleteCategory(@PathVariable("Id") Integer Id) {
+
             log.info("category deleted");
             categoryService.deleteCategory(Id);
             return new ResponseEntity<>( HttpStatus.OK);
