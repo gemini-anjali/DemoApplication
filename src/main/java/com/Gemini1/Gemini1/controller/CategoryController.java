@@ -38,9 +38,9 @@ public class CategoryController {
     @PostMapping("/category")
     public ResponseEntity<Category> addCategory(@RequestBody Category addCategory) {
 
-           log.info("category added");
-           Category category = categoryService.addCategory(addCategory);
-           return new ResponseEntity<>(category, HttpStatus.CREATED);
+            log.info("category added");
+            Category category = categoryService.addCategory(addCategory);
+            return new ResponseEntity<>(category, HttpStatus.CREATED);
     }
 
     /**
@@ -49,9 +49,9 @@ public class CategoryController {
     @GetMapping("/category/{Id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Integer Id) {
 
-           log.info("Getting the Category" + Id);
-           Category category = categoryService.getCategoryById(Id);
-           return new ResponseEntity<>(category,HttpStatus.OK);
+            log.info("Getting the Category" + Id);
+            Category category = categoryService.getCategoryById(Id);
+            return new ResponseEntity<>(category,HttpStatus.OK);
     }
 
     /**
