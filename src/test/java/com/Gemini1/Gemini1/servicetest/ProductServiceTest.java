@@ -66,7 +66,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    void test_getCategoryResourceNotFoundException() {
+    void test_getCategoryListResourceNotFoundException() {
 
         List <Category> myCategory= new ArrayList<>();
 

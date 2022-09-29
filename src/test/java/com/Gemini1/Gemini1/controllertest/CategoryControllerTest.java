@@ -72,7 +72,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void get_CategoryResourceNotFound() throws Exception
+    void get_CategoryListResourceNotFound() throws Exception
     {
         Integer categoryId=1;
 

@@ -72,7 +72,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void get_ProductResourceNotFound() throws Exception
+    void test_getProductListResourceNotFound() throws Exception
     {
         Integer productId=1;
 
