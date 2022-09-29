@@ -15,6 +15,9 @@ public class CategoryServicesImpl implements CategoryService {
     @Autowired
     CategoryRepository categoryrepository;
 
+    /**
+     * Get Category List */
+
     @Override
     public List<Category> getCategoryList() {
         log.trace("Getting the category List");
@@ -28,6 +31,9 @@ public class CategoryServicesImpl implements CategoryService {
         return categoryList;
     }
 
+
+    /**
+     * Update Category */
     @Override
     public Category updateCategory(Integer id, Category category) {
 
@@ -43,6 +49,9 @@ public class CategoryServicesImpl implements CategoryService {
         return categoryrepository.save(updateCategory);
     }
 
+
+    /**
+     * Add Category */
     @Override
     public Category addCategory(Category category)
     {
@@ -51,6 +60,9 @@ public class CategoryServicesImpl implements CategoryService {
         return categoryrepository.save(category);
     }
 
+
+    /**
+     * Get Category By id */
     @Override
     public Category getCategoryById(Integer categoryId) {
 
@@ -64,7 +76,8 @@ public class CategoryServicesImpl implements CategoryService {
                 );
     }
 
-
+    /**
+     * Delete Category */
     @Override
     public void deleteCategory(Integer categoryId) {
 
