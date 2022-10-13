@@ -1,4 +1,4 @@
-package com.Gemini1.Gemini1.servicetest;
+package com.Gemini1.Gemini1.serviceTest;
 
 
 import com.Gemini1.Gemini1.entity.Category;

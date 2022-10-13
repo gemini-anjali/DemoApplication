@@ -1,4 +1,4 @@
-package com.Gemini1.Gemini1.controllertest;
+package com.Gemini1.Gemini1.controllerTest;
 
 import com.Gemini1.Gemini1.controller.ProductController;
 import com.Gemini1.Gemini1.entity.Products;
