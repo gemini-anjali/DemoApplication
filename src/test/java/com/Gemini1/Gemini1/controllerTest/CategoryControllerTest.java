@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -56,7 +57,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void test_GetCategoryList() throws Exception {
+    @Order(1)
+    public void testGetCategoryList() throws Exception {
         categories = new ArrayList<>();
         categories.add(new Category(1,
                 "name",
@@ -72,7 +74,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void get_CategoryListResourceNotFound() throws Exception
+    @Order(2)
+    public void getCategoryListResourceNotFound() throws Exception
     {
         Integer categoryId=1;
 
@@ -85,7 +88,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void test_getCategoryById() throws Exception
+    @Order(3)
+    public void testGetCategoryById() throws Exception
     {
 
         Integer categoryId=1;
@@ -107,7 +111,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void get_CategoryByIdResourceNotFound() throws Exception
+    @Order(4)
+    public void getCategoryByIdResourceNotFound() throws Exception
     {
         Integer categoryId=1;
 
@@ -120,7 +125,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void test_addCategory() throws Exception {
+    @Order(5)
+    public void testAddCategory() throws Exception {
         category = new Category(1,
                 "name",
                 "description",
@@ -140,7 +146,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void test_UpdateCategory() throws Exception {
+    @Order(6)
+    public void testUpdateCategory() throws Exception {
         category = new Category(1,
                 "name",
                 "description",
@@ -164,7 +171,8 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void updateCategoryResourceNotFound() throws Exception {
+    @Order(7)
+    public void testUpdateCategoryResourceNotFound() throws Exception {
 
         Integer categoryId=1;
         Category testCategory=new Category();
@@ -183,11 +191,12 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void test_deleteCategory() throws Exception {
-        int categoryId=1;
+    @Order(8)
+    public void testDeleteCategory() throws Exception {
+        Integer categoryId = 1;
         categoryService.deleteCategory(categoryId);
-        this.mockMvc
-                .perform(delete("/category/{id}",1))
+
+        this.mockMvc.perform(delete("/category/{categoryId}", categoryId))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

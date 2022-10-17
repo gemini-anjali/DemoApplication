@@ -23,64 +23,78 @@ public class ProductController {
     private ProductService productService;
 
     /**
-     * Get Product */
+     *
+     * @return List<Product>
+     */
 
     @GetMapping("/product")
     public ResponseEntity<List<Products>> getProductList() {
 
-            log.info("Getting the list of all product");
             List<Products> productList = productService.getProductList();
+            log.info("Fetched the list of all product");
             return new ResponseEntity<>(productList, HttpStatus.OK);
 
     }
 
 
     /**
-     * Add Product */
+     *
+     * @param Id category id in which product is added
+     * @param newProduct newProduct details
+     * @return newProduct
+     */
 
     @PostMapping("category/{Id}/products")
     public ResponseEntity<Object> addProduct(@PathVariable Integer Id, @Valid @RequestBody Products newProduct) {
 
-            log.info("POST Request for employee is successful");
             Products product = productService.addProduct(Id,newProduct);
+            log.info("POST Request for employee is successful");
             return new ResponseEntity<>(product, HttpStatus.CREATED);
 
     }
 
     /**
-     * Get Product By id */
+     *
+     * @param Id productId
+     * @return product details for the product id
+     */
 
     @GetMapping("product/{Id}")
     public ResponseEntity<Products> getProductById(@PathVariable Integer Id) {
 
-            log.info("Get Category By Id");
             Products product = this.productService.getProductById(Id);
+            log.info("Product Fetched By Id");
             return new ResponseEntity<>(product, HttpStatus.OK);
 
     }
 
 
     /**
-     * Update Product */
+     *
+     * @param Id product id for which the details are to be updated
+     * @param product product details
+     * @return products updated
+     */
 
     @PutMapping("product/{Id}")
-    public ResponseEntity<Products> updateProduct(@PathVariable("Id") Integer Id, @RequestBody Products category) {
+    public ResponseEntity<Object> updateProduct(@PathVariable("Id") Integer Id, @RequestBody Products product) {
 
-            log.info("Update Category");
-            productService.updateProduct(Id, category);
-            return new ResponseEntity<>(productService.getProductById((Id)), HttpStatus.OK);
+            productService.updateProduct(Id,product);
+            log.info("Product Updated");
+            return new ResponseEntity<>("Product details have been successfully  updated",HttpStatus.OK);
 
     }
 
     /**
-     * Delete Product */
+     *
+     * @param productId productId which is to be deleted
+     * @return product
+     */
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<Object> deleteCategory(@PathVariable Integer productId) {
 
-    @DeleteMapping("product/{Id}")
-    public ResponseEntity<Products> deleteProduct(@PathVariable("Id") Integer Id) {
-
-            log.info("category deleted");
-            productService.deleteProduct(Id);
-            return new ResponseEntity<>(HttpStatus.OK);
-
+        productService.deleteProduct(productId);
+        log.info("DELETE Request is successful for Category with id : "+ productId);
+        return new ResponseEntity<>("product deleted successfully",HttpStatus.OK);
     }
 }

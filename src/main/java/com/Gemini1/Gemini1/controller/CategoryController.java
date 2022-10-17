@@ -15,65 +15,79 @@ import java.util.List;
 @RestController
 public class CategoryController {
     /**
-     * Category Service */
+     * Category Service
+     */
     @Autowired
     private CategoryService categoryService;
 
     /**
-     * Get All Category */
+     *
+     * @return List <Category>
+     */
 
     @GetMapping("/category")
     public ResponseEntity<List<Category>> getCategoryList() {
 
-            log.info("Getting the list of all category");
             List<Category> categoryList = categoryService.getCategoryList();
-            log.info("Get request for department is successful");
+            log.info("Get request for category is successful");
             return new ResponseEntity<>(categoryList, HttpStatus.OK);
 
     }
 
     /**
-     * Add Category */
+     *
+     * @param addCategory category to be added
+     * @return Category
+     */
 
     @PostMapping("/category")
     public ResponseEntity<Category> addCategory(@RequestBody Category addCategory) {
 
-            log.info("category added");
             Category category = categoryService.addCategory(addCategory);
+            log.info("Post request for category is successful");
             return new ResponseEntity<>(category, HttpStatus.CREATED);
     }
 
     /**
-     * Get Category By CategoryId */
+     *
+     * @param Id category id to be fetched
+     * @return  Category
+     */
 
     @GetMapping("/category/{Id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Integer Id) {
 
-            log.info("Getting the Category" + Id);
             Category category = categoryService.getCategoryById(Id);
+            log.info("Get request for category is successful with Id" + Id);
             return new ResponseEntity<>(category,HttpStatus.OK);
     }
 
     /**
-     * Update Category */
+     *
+     * @param CategoryId CategoryId to be changed
+     * @param category new updated category
+     * @return updated Category
+     */
 
     @PutMapping("/category/{Id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable("Id") Integer CategoryId, @RequestBody Category category) {
+    public ResponseEntity<Object> updateCategory(@PathVariable("Id") Integer CategoryId, @RequestBody Category category) {
 
-            log.info("Update Category");
             categoryService.updateCategory(CategoryId, category);
-            return new ResponseEntity<>(categoryService.getCategoryById(CategoryId), HttpStatus.OK);
+            log.info("Put request for category is successful");
+            return new ResponseEntity<>("Category details have been successfully updated", HttpStatus.OK);
     }
 
     /**
-     * Delete Category */
+     *
+     * @param categoryId categoryId which is to deleted
+     * @return category successfully deleted
+     */
+    @DeleteMapping("/category/{categoryId}")
+    public ResponseEntity<Object> deleteCategory(@PathVariable Integer categoryId) {
 
-    @DeleteMapping("/category/{Id}")
-    public ResponseEntity<Category> deleteCategory(@PathVariable("Id") Integer Id) {
-
-            log.info("category deleted");
-            categoryService.deleteCategory(Id);
-            return new ResponseEntity<>( HttpStatus.OK);
-
+         categoryService.deleteCategory(categoryId);
+         log.info("DELETE Request is successful for Category with id : "+ categoryId);
+        return new ResponseEntity<>("category deleted successfully",HttpStatus.OK);
     }
+
 }

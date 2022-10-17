@@ -4,6 +4,7 @@ import com.Gemini1.Gemini1.entity.Category;
 import com.Gemini1.Gemini1.exception.ResourceNotFoundException;
 import com.Gemini1.Gemini1.repository.CategoryRepository;
 import com.Gemini1.Gemini1.services.CategoryServicesImpl;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,9 +16,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +32,8 @@ public class CategoryServiceTest {
     CategoryServicesImpl categoryService;
 
     @Test
-    public void test_getCategoryList()
+    @Order(1)
+    public void testGetCategoryList()
 
     {
         List <Category> myCategory= new ArrayList<>();
@@ -55,7 +57,8 @@ public class CategoryServiceTest {
     }
 
     @Test
-    void test_getCategoryListResourceNotFoundException() {
+    @Order(2)
+    void testGetCategoryListResourceNotFoundException() {
 
         List <Category> myCategory= new ArrayList<>();
 
@@ -67,7 +70,8 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void test_getCategoryById() {
+    @Order(3)
+    public void testGetCategoryById() {
 
         Category category = new Category(1,
                 "category1",
@@ -85,7 +89,8 @@ public class CategoryServiceTest {
 
 
     @Test
-    void test_getCategoryIdResourceNotFoundException() {
+    @Order(4)
+    void testGetCategoryIdResourceNotFoundException() {
         Integer id = 1;
 
         when(categoryRepository.findById(id))
@@ -97,7 +102,8 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void test_addCategory()
+    @Order(5)
+    public void testAddCategory()
     {
         Category category= new Category(3,
                 "category3",
@@ -113,7 +119,8 @@ public class CategoryServiceTest {
 
 
    @Test
-    void test_updateCategory() {
+   @Order(6)
+    void testUpdateCategory() {
         Category category =new Category(1,
                 "name",
                 "category1is",
@@ -129,7 +136,8 @@ public class CategoryServiceTest {
 
 
     @Test
-    public void test_updateCategoryResourceNotFoundException() {
+    @Order(7)
+    public void testUpdateCategoryResourceNotFoundException() {
         int id = 1;
         Category category =new Category(1,
                 null,
@@ -147,21 +155,24 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void test_deleteCategory(){
-        List <Category> myCategory= new ArrayList<>();
-        myCategory.add(new Category(1,
+    @Order(8)
+    public void testDeleteCategory(){
+
+        int categoryId =1 ;
+        Category category = new Category(1,
                 "category1",
                 "category1is",
                 true,
                 false,
                 null,
-                null));
-        int CategoryId =1;
-        categoryRepository.DeleteCategory(CategoryId);
-        when(categoryRepository.findAll()).thenReturn(myCategory);
-        assertThat(myCategory).isNotNull();
+                null);
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
+        categoryService.deleteCategory(categoryId);
+        assertTrue(category.isDeleted());
+        assertFalse(category.isActive());
 
     }
+
 
 
 }

@@ -1,9 +1,6 @@
 package com.Gemini1.Gemini1.entity;
 
 
-
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 
@@ -25,16 +23,25 @@ import java.time.LocalDate;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int productId;
+
+        @NotBlank(message = "Product name cannot be empty.")
         private String productName;
+
         private String productDescription;
+
         private int price;
+
         private boolean active=Boolean.TRUE;
+
         private boolean deleted=Boolean.FALSE;
+
         @CreationTimestamp
         @Column(updatable = false)
         LocalDate createDate;
+
         @UpdateTimestamp
         LocalDate updateDate;
+
         @ManyToOne
         @JoinColumn(name = "category_id")
         private Category category;

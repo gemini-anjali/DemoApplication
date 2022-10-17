@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -54,7 +55,8 @@ class ProductControllerTest {
     }
 
     @Test
-    public void test_GetProductList() throws Exception {
+    @Order(1)
+    public void testGetProductList() throws Exception {
         products = new ArrayList<>();
         products.add(new Products(1,
                 "name",
@@ -72,7 +74,8 @@ class ProductControllerTest {
     }
 
     @Test
-    void test_getProductListResourceNotFound() throws Exception
+    @Order(2)
+    void testGetProductListResourceNotFound() throws Exception
     {
         Integer productId=1;
 
@@ -85,7 +88,8 @@ class ProductControllerTest {
     }
 
     @Test
-    void test_getProductById() throws Exception {
+    @Order(3)
+    void testGetProductById() throws Exception {
 
         Integer productId=1;
         Products pod1 =new Products(1,
@@ -109,7 +113,8 @@ class ProductControllerTest {
 
 
     @Test
-    void get_ProductByIdResourceNotFound() throws Exception
+    @Order(4)
+    void getProductByIdResourceNotFound() throws Exception
     {
         Integer productId=1;
 
@@ -120,7 +125,8 @@ class ProductControllerTest {
     }
 
     @Test
-    void test_addProduct() throws Exception {
+    @Order(5)
+    void testAddProduct() throws Exception {
 
         Integer categoryId=1;
         Products product =new Products(1,
@@ -144,7 +150,8 @@ class ProductControllerTest {
     }
 
     @Test
-    public void test_updateCategory() throws Exception {
+    @Order(6)
+    public void testUpdateCategory() throws Exception {
         Integer CategoryId=1;
         Products product =new Products(1,
                 "name",
@@ -171,6 +178,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @Order(7)
     void updateCategoryResourceNotFound() throws Exception {
 
 
@@ -196,11 +204,12 @@ class ProductControllerTest {
     }
 
     @Test
-    public void test_deleteProduct() throws Exception {
-        int productId=1;
+    @Order(8)
+    public void testDeleteProduct() throws Exception {
+        Integer productId = 1;
         productService.deleteProduct(productId);
-        this.mockMvc
-                .perform(delete("/product/{id}",1))
+
+        this.mockMvc.perform(delete("/product/{productId}", productId))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

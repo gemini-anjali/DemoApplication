@@ -20,6 +20,11 @@ public class ProductServicesImpl implements ProductService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    /**
+     *
+     * @return Product List
+     */
     @Override
     public List<Products> getProductList() {
 
@@ -34,11 +39,16 @@ public class ProductServicesImpl implements ProductService {
         return productList;
     }
 
+    /**
+     *
+     * @param productId productId for which the details are to be updated
+     * @param products new product details
+     * @return product with updated data
+     */
     @Override
     public Products updateProduct(Integer productId, Products products) {
 
         log.trace("In method update Product");
-        log.info("Category Updated");
         Products updatedProduct = productsRepository.findById(productId)
                 .orElseThrow(()->{
                             log.error("Category"+ productId +"does not exist");
@@ -48,14 +58,19 @@ public class ProductServicesImpl implements ProductService {
         updatedProduct.setProductName(products.getProductName());
         updatedProduct.setProductDescription(products.getProductDescription());
         updatedProduct.setPrice(products.getPrice());
-        return productsRepository.save(updatedProduct);
+        productsRepository.save(updatedProduct);
+        return updatedProduct;
     }
 
+    /**
+     *
+     * @param productId productId which is to searched
+     * @return product details for a productId
+     */
     @Override
     public Products getProductById(Integer productId) {
 
         log.trace("In method get product by id");
-        log.info("Getting Product By Id");
         return productsRepository.findById(productId)
                 .orElseThrow(()->{
                             log.error("Category"+ productId +"does not exist");
@@ -63,19 +78,18 @@ public class ProductServicesImpl implements ProductService {
                         }
                 );
     }
-    @Override
-    public void deleteProduct(Integer productId) {
 
-        log.trace("In method Delete Product");
-        log.info("deleting product");
-        productsRepository.DeleteProduct(productId);
-    }
 
+    /**
+     *
+     * @param categoryId categoryId to which the product is to be added
+     * @param products products details which is to be added
+     * @return productDetails which are added
+     */
     @Override
     public Products addProduct(Integer categoryId, Products products){
 
         log.trace("In Method Add Product");
-        log.info("dding Product");
         Optional<Category> category = categoryRepository.findById(categoryId);
         products.setCategory(category
                 .orElseThrow(()->{
@@ -85,6 +99,26 @@ public class ProductServicesImpl implements ProductService {
                 ));
         productsRepository.save(products);
         return products;
+    }
+
+    /**
+     *
+     * @param productId productId which is to be deleted
+     */
+    @Override
+    public void deleteProduct(Integer productId) {
+        log.trace("Entering the method deleteProduct.");
+
+        Products products = productsRepository.findById(productId).orElseThrow(
+                () -> {
+                    log.error("Category not found with id : "+ productId);
+                    return new ResourceNotFoundException("Category not found with categoryId : "+ productId);
+                }
+        );
+
+        products.setDeleted(true);
+        products.setActive(false);
+        productsRepository.save(products);
     }
 
 

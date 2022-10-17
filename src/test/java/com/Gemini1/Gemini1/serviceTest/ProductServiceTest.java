@@ -7,6 +7,7 @@ import com.Gemini1.Gemini1.exception.ResourceNotFoundException;
 import com.Gemini1.Gemini1.repository.CategoryRepository;
 import com.Gemini1.Gemini1.repository.ProductsRepository;
 import com.Gemini1.Gemini1.services.ProductServicesImpl;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,9 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -38,7 +38,7 @@ public class ProductServiceTest {
 
 
     @Test
-
+    @Order(1)
     public void test_getProductList()
     {   List<Products> myProduct= new ArrayList<>();
         myProduct.add(new Products(1,
@@ -66,6 +66,7 @@ public class ProductServiceTest {
     }
 
     @Test
+    @Order(2)
     void test_getCategoryListResourceNotFoundException() {
 
         List <Category> myCategory= new ArrayList<>();
@@ -77,7 +78,7 @@ public class ProductServiceTest {
 
     }
     @Test
-
+    @Order(3)
     public void test_addProduct()  {
 
         Products myProduct =new Products(1,
@@ -99,6 +100,7 @@ public class ProductServiceTest {
     }
 
     @Test
+    @Order(4)
     public void test_getProductById()
     {
 
@@ -117,6 +119,7 @@ public class ProductServiceTest {
     }
 
     @Test
+    @Order(5)
     void test_getProductByIdResourceNotFoundException() {
         Integer id = 1;
 
@@ -130,6 +133,7 @@ public class ProductServiceTest {
 
 
     @Test
+    @Order(6)
     void test_updateProduct() {
         Products product =new Products(1,
                 "name",
@@ -147,6 +151,7 @@ public class ProductServiceTest {
     }
 
     @Test
+    @Order(7)
     public void test_updateCategoryResourceNotFoundException() {
         int id = 1;
         Products product = new Products(1,
@@ -167,13 +172,25 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void test_deleteProduct(){
-        List <Products> myProduct= new ArrayList<>();
-        myProduct.add(new Products(1,"category1","category1is",50000,false,false,null,null,null));
-        int productId =1;
-        productsRepository.DeleteProduct(productId);
-        when(productsRepository.findAll()).thenReturn(myProduct);
-        assertThat(myProduct).isNotNull();
+    @Order(8)
+    public void testDeleteProduct(){
+
+        int productId =1 ;
+        Products products =  new Products(1,
+                "category1",
+                "category1is",
+                80,
+                false,
+                false,
+                null,
+                null,
+                null);
+
+        when(productsRepository.findById(productId)).thenReturn(Optional.of(products));
+        productServices.deleteProduct(productId);
+        assertTrue(products.isDeleted());
+        assertFalse(products.isActive());
+
     }
 
 

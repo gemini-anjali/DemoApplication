@@ -27,13 +27,16 @@ public class CategoryServicesImpl implements CategoryService {
             log.error("No category List");
             throw new ResourceNotFoundException("No Data");
         }
-        log.info("Getting all data for the category table");
         return categoryList;
     }
 
 
     /**
-     * Update Category */
+     *
+     * @param id Category id to be updated
+     * @param category Category details to be updated
+     * @return Category with updated data
+     */
     @Override
     public Category updateCategory(Integer id, Category category) {
 
@@ -46,28 +49,33 @@ public class CategoryServicesImpl implements CategoryService {
                 );
         updateCategory.setCategoryName(category.getCategoryName());
         updateCategory.setCategoryDescription(category.getCategoryDescription());
-        return categoryrepository.save(updateCategory);
+        categoryrepository.save(updateCategory);
+        return updateCategory;
     }
 
 
     /**
-     * Add Category */
+     *
+     * @param category Category which is to be added
+     * @return Category
+     */
     @Override
     public Category addCategory(Category category)
     {
         log.trace("In method AddCategory");
-        log.info("Category Added Successfully");
         return categoryrepository.save(category);
     }
 
 
     /**
-     * Get Category By id */
+     *
+     * @param categoryId categoryId which is to be searched
+     * @return details of a particular CategoryId
+     */
     @Override
     public Category getCategoryById(Integer categoryId) {
 
         log.trace("In method Get Category By Id");
-        log.info("Getting Category By Id");
         return categoryrepository.findById(categoryId)
                 .orElseThrow(()->{
                             log.error("Category"+ categoryId +"does not exist");
@@ -77,12 +85,23 @@ public class CategoryServicesImpl implements CategoryService {
     }
 
     /**
-     * Delete Category */
+     *
+     * @param categoryId categoryId which is to be deleted
+     */
     @Override
     public void deleteCategory(Integer categoryId) {
+        log.trace("Entering the method deleteCategory.");
 
-        log.trace("In method Delete Category");
-        log.info("Delete Category");
-        categoryrepository.DeleteCategory(categoryId);
+        Category category = categoryrepository.findById(categoryId).orElseThrow(
+                () -> {
+                    log.error("Category not found with id : "+ categoryId);
+                    return new ResourceNotFoundException("Category not found with categoryId : "+ categoryId);
+                }
+        );
+
+        category.setDeleted(true);
+        category.setActive(false);
+        categoryrepository.save(category);
     }
+
 }
