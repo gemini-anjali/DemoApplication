@@ -31,6 +31,7 @@ public class CategoryController {
             List<Category> categoryList = categoryService.getCategoryList();
             log.info("Get request for category is successful");
             return new ResponseEntity<>(categoryList, HttpStatus.OK);
+            ///vhvhhjhgjhjjkhkjhkjhhjhkjhkhk
 
     }
 
@@ -46,6 +47,7 @@ public class CategoryController {
             Category category = categoryService.addCategory(addCategory);
             log.info("Post request for category is successful");
             return new ResponseEntity<>(category, HttpStatus.CREATED);
+        ///vhvhhjhgjhjjkhkjhkjhhjhkjhkhk
     }
 
     /**
@@ -60,6 +62,7 @@ public class CategoryController {
             Category category = categoryService.getCategoryById(Id);
             log.info("Get request for category is successful with Id" + Id);
             return new ResponseEntity<>(category,HttpStatus.OK);
+        ///vhvhhjhgjhjjkhkjhkjhhjhkjhkhk
     }
 
     /**
