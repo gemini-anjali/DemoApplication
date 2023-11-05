@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      idleTimeout: 10000
+      maximumPoolSize: 15
+      minimumIdle: 2
+    password: Rajendra@285
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/demodb
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
